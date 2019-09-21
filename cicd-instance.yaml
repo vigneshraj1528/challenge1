@@ -1,0 +1,25 @@
+---
+- hosts: cicdinstance
+  roles: 
+  - role: java-install
+    become: yes 
+
+- hosts: cicdinstance
+  roles:
+  - role: git-install
+    become: yes
+
+- hosts: cicdinstance
+  roles:
+  - role: python-install
+    become: yes
+
+- hosts: cicdinstance
+  roles:
+  - role: jenkins-install
+    become: yes
+
+- hosts: cicdinstance
+  roles:
+  - role: docker-install
+    become: yes    
