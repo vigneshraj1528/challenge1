@@ -32,3 +32,27 @@
       dest: /usr/bin/docker-compose
       mode: 0755
 
+- name: Update jenkins user in docker
+  shell: sudo usermod -aG docker jenkins
+
+- name: "add insecure nexus registry"
+  copy:
+    src: daemon.json
+    dest: /etc/docker/daemon.json
+
+- name: "restart docker"
+  service:
+      name: docker
+      state: restarted 
+
+- name: Adding user groups
+  user: 
+    name: jenkins
+    shell: /bin/bash
+    groups: docker
+    append: yes
+
+- name: Restart Jenkins
+  service: 
+    name: jenkins
+    state: restarted
